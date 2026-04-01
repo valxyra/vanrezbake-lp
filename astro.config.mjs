@@ -9,5 +9,7 @@ export default defineConfig({
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()]
-  }
+  },
+  site: 'https://valxyra.github.io',
+  base: 'vanrezbake-lp',
 });
