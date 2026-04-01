@@ -1,0 +1,127 @@
+---
+/**
+ * ProductCatalog.astro – Bento-grid product showcase
+ *
+ * Shadcn integration notes:
+ * - Each product tile is a candidate for <Card> / <CardHeader> / <CardContent>.
+ *   The current markup uses custom rounded-xl containers that can be swapped to:
+ *     <Card className="group relative overflow-hidden …">
+ *       <CardHeader>…title + badge…</CardHeader>
+ *       <CardContent>…image…</CardContent>
+ *     </Card>
+ * - "Details" and "Order Now" CTAs can use <Button variant="outline" size="sm">.
+ */
+
+interface Product {
+  name: string;
+  tagline: string;
+  image: string;
+  alt: string;
+  badge?: string;
+  featured?: boolean;
+}
+
+const products: Product[] = [
+  {
+    name: "Nastar Royale",
+    tagline: "Handmade pineapple jam encased in a melt-in-your-mouth golden crust.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCrmr6h5fpnykQ7rIhp7uEDAUFsuRRL8Z5v9amksmM3Os6uNxD3jjENE9sGd2jGS7WLRY6GXEpG6C7Q6Ex8hNkIxfcPPoPxxfDysuvVEVSSmM-OzNDWczJ6ATUs_1AZON1N4UZYYCJmI4smVjpGL5Xm46mHXKVFSsMc3494aNyPVGmSnBCcICUllTVHG7Vlw8lab1Vof6fPrfMeMYcQqlB2s1JZG-0RgyhTLEOPK9gzPHBVnf58FN5sX7k2jK7HlOZgJutnraTzbkE",
+    alt: "Golden brown spherical nastar pineapple cookies arranged in a decorative bowl",
+    badge: "Bestseller",
+    featured: true,
+  },
+  {
+    name: "Kastengel",
+    tagline: "Aged Edam & Cheddar crunch.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB-7Dy_t5SJPuYuycq10oRia6zMAOnMiLuldNIRU0fv8yl4sEss-y5KhYAhINUBqxidJaWUrIKYKXt2_5TQ6uWbpqAIqrM9nAmIhXzj0BrJd6EMp3erDt2-p8wztIvzAoz4QXlyw5ZzzjJnwE6rRBWVXbQcIntzq3tDa-stIbI5e3g6205qujqgWO2y-sxpLcFZGYkJgj4OB3d-4ALL9eEdVa0nTrnY9yWGmcLjVG1QUK9X3cwTB8mStEe5t0j46KC495rqbsa1YQY",
+    alt: "Long rectangular cheese cookies topped with grated cheddar cheese on a ceramic plate",
+  },
+  {
+    name: "Putri Salju",
+    tagline: "Cooling sugar-dusted crescents.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAKiM8RMUMQlF4323FoKI7htl6VulXIEIS9UL26NZmOGYm7tnqUvbiTUYhnyFxPPiTO8hjLTB6ZaRGWmqgW-iil0npSrPDXjEhFmBLS4fC3o_nf78CQ0fi5geG6vr_RL82blTtWY4tQXfeO9nEGdYbqQTzSxa6psRgBs2mOiDaiuA69kmnfG3msNo4Qkr-VZzM9S7ztGZiBxkuvjY5LIDpp2AcFiPxHRhA5CpASwTehqAU1Q-CGUt-wkBaMwvPrH_BMuOLsAgNR-68",
+    alt: "Crescent shaped cookies covered in white powdered sugar on a wooden tray",
+  },
+  {
+    name: "Sagu Keju",
+    tagline: "Light, airy cheese blossoms.",
+    image: "https://lh3.googleusercontent.com/pw/AP1GczMWa0Qp0qEWP0cpINoavQzeIogde7VhBQfa78ZLHYihR8BzQ22QMLO-qktJ7VFAOfUPc3oPgIaPyV2n8XM_i3_e0WKZt6DM0gWRD2x4Wb-7d3NNkA9TEZUDWG4Mz8u34mr0iQvoaBCjfXNx4hvlSwIdISxaO--lrBpdS8PgwiwkeG0i763LYUTcRF8GZ776-Iyq1tOnIjCfZDN4gJ6KMELy8exHzd5VXn-yqZ34aWz796GmwCAwXHg3uoEX5Vfe-SXdBy6CsWqlBCXZjsPJcM33e0mKVFl5KxYLOrJc_9Kj1p2817Aujxu-UdgHCeyLaCjXtttLiPaUKJpYWbnbCfYgFUiaHyIPDNemgxh_tUXksm3IHksjLwPfqytg5BSD9sPQ2iPgJasNswWftVmbhJl25EU2NKd0ctFdXVGqwD5KMZFcd6HYJ4gFSx2Vl5raqiv2kGGkONpfZHbBa-YD3mT26lUIuE85woLHpr1wgVLJ7nqPBR3aYlIkfYLfACxGHXWJXvNYe_dBN4sUvjuVUjhJ5vcmJy1NFBsjVRlcTuLpt7tjifiyGVsse4uNqp_82ih7oEvHH7K6duLj3zv73s5zCNdUFzYypQ3W-nw8FmSzmHN21qtLYTUuQrmVg8dvZM158HxJg_ClO0JE8o9elf96YQxRS2hZH_hT40DopCATcCOorLjkv4wiV16VgdeRnRsJt60Xg_dfmC2Hsk6jcjhYUktZmqQIum1kXbEfyupAPSQ_wxvLpU8mMuO2VG-0mXZ6_0-JbvM4mHP3yqwPjBCAVdv7Pc0oiqi6TuS0dMB8ftHYPgVKTpx3cZw0E04xZlqUDh0mb2Orb123_v5aIlrd7P3l5z91Llq2XAvYkHbYJkv8YdU-gj3eWKGwtT-gR2fYXdYvFFtXcxSF016YJswQr2VRy8D_3fcsOK4lU9jXTTldrzcU4JQt4X_THqu6-uqsinULIMNR=w411-h386-no?authuser=0",
+    alt: "Delicate spiral shaped cheese cookies made from sago flour on a pastel background",
+  },
+  {
+    name: "Peanut Bliss",
+    tagline: "Traditional roasted peanut nutty heart.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCd_sIffqUmfFTBAviklCLaW_QU8ZShu0AYqjW0ETWG6US1zxw8kSIPZnKNxL2qDRcUnzQnAJzMkP3ppz6P4Y0xQZcDEyl5IlNaFvTm7aZnhaisBALNg5_xqNgVr34_D82A5cPf7dPdQh_L9t3D5qXAxl98n4w7zoBbRUsUjQ8mKNNqHXGXuYr_hKYF4Vl0BE9sI7wK6hy1tyGELQ04_cyTRzyV1pVUDYcEdclVUO0yvoOjC-9t0o2qKGlMs-rCFln0FwOqv3dFg00",
+    alt: "Round roasted peanut cookies with a glazed finish and a whole nut on top",
+  },
+];
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-8 py-16" id="menu" aria-labelledby="menu-heading">
+  <!-- Section header -->
+  <div class="text-center mb-16 space-y-4">
+    <h2 id="menu-heading" class="text-4xl font-headline font-bold">The Signature Collection</h2>
+    <p class="text-on-surface-variant">Hand-picked favorites that define the Vanrez standard.</p>
+  </div>
+
+  <!-- Bento grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {products.map((product) =>
+      product.featured ? (
+        <!-- Featured product (Nastar) – large tile -->
+        <div class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-xl bg-surface-container-low p-6 transition-all hover:bg-surface-container min-h-[260px] sm:min-h-[380px]">
+          <div class="relative z-10 space-y-2 mb-4">
+            {product.badge && (
+              <span class="text-md-secondary font-bold text-xs tracking-widest uppercase">
+                {product.badge}
+              </span>
+            )}
+            <h3 class="text-3xl font-headline font-bold">{product.name}</h3>
+            <p class="text-on-surface-variant max-w-xs">{product.tagline}</p>
+          </div>
+          <div class="absolute bottom-0 right-0 w-3/4 h-3/4 transform translate-y-10 translate-x-10 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-500 rounded-lg overflow-hidden">
+            <img
+              class="w-full h-full object-contain"
+              alt={product.alt}
+              src={product.image}
+              width="400"
+              height="400"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="absolute bottom-6 left-6">
+            <button type="button" aria-label={`Order ${product.name}`} class="inline-flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-full text-sm font-bold shadow-sm hover:bg-surface-container-high transition-colors cursor-pointer">
+              Order Now <span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <!-- Standard product tile – candidate for <Card> -->
+        <div class="group relative overflow-hidden rounded-xl bg-surface-container-high p-6 transition-all">
+          <h3 class="text-xl font-headline font-bold mb-1">{product.name}</h3>
+          <p class="text-sm text-on-surface-variant mb-4">{product.tagline}</p>
+          <div class="aspect-square rounded-lg overflow-hidden mb-4">
+            <img
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              alt={product.alt}
+              src={product.image}
+              width="400"
+              height="400"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          {/* Wire to product detail page when routing exists; for now scrolls to menu section */}
+          <a
+            href="#menu-heading"
+            aria-label={`View details for ${product.name}`}
+            class="block w-full py-2 rounded-full border border-md-primary text-md-primary font-bold text-xs uppercase tracking-tighter text-center hover:bg-md-primary hover:text-on-primary transition-colors"
+          >
+            Details
+          </a>
+        </div>
+      )
+    )}
+  </div>
+</section>

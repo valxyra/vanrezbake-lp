@@ -1,0 +1,85 @@
+---
+/**
+ * AboutStory.astro – History narrative section
+ *
+ * Shadcn integration notes:
+ * - The quote overlay card is a candidate for <Card> with <CardContent>.
+ * - The stat counters could be wrapped in a <Card> for visual consistency.
+ */
+
+const stats = [
+  { value: "12k+", label: "Happy Clients" },
+  { value: "15", label: "Years Tradition" },
+];
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-8 py-16 md:py-24" id="story" aria-labelledby="story-heading">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+    <!-- Image column -->
+    <div class="relative">
+      <div
+        class="rounded-xl overflow-hidden shadow-xl aspect-[4/5] bg-surface-container"
+      >
+        <img
+          class="w-full h-full object-cover"
+          alt="Chef in a clean white kitchen carefully dusting flour over a wooden table with vintage baking tools"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCauvc7z20dVdp51i07pHOf6D1xbZ_eGC8gqcH9qzn2BEvU-niW0iksMEwmGS_fXYB4yvlr8lefPepY53Rw_N82_vmROw6M_frtx31uUPOHQH_GQXPNVOUuBLzwejhbuSUbvNXpG3RMBY1GXOkvYaobJislxX7f89Ar3rBSKDPveit3sE-GLweiDmBwXD876CwhRs3yU1R1zO6-G-VhNxLqB08Zj9VDOq2X4sk-q8278gjd4u017JJ-mQWAMXl_hT-cSOGJZ0V4Ww8"
+          width="480"
+          height="600"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <!-- Floating quote card -->
+      <div
+        class="absolute -right-8 -bottom-8 bg-surface-container-lowest p-8 rounded-xl shadow-lg max-w-xs hidden lg:block"
+      >
+        <p class="italic text-md-primary font-headline text-lg">
+          "We don't just bake; we preserve moments of joy in every golden
+          bite."
+        </p>
+      </div>
+    </div>
+
+    <!-- Text column -->
+    <div class="space-y-8">
+      <h2 id="story-heading" class="text-4xl font-headline font-bold">The Heart of Vanrez</h2>
+
+      <div class="space-y-4 text-on-surface-variant leading-relaxed">
+        <p>
+          Founded on the belief that the finest things in life are handcrafted,
+          Vanrez Bakery started in a small home kitchen with a single recipe
+          for Nastar passed down through three generations.
+        </p>
+        <p>
+          Today, while our reach has grown, our commitment remains artisanal.
+          We refuse the shortcuts of mass production. Every batch is measured
+          by hand, every pineapple jam slow-cooked for 8 hours, and every
+          cookie inspected for that perfect, delicate snap.
+        </p>
+        <p>
+          Our "Aesthetic-Minimalist" philosophy extends beyond our design—it's
+          in our ingredients list. No preservatives, no artificial coloring,
+          just pure butter, premium flour, and a lot of heart.
+        </p>
+      </div>
+
+      <!-- Stats row -->
+      <div class="flex gap-8 items-center pt-4">
+        {stats.map((stat, index) => (
+          <>
+            {index > 0 && <div class="w-px h-12 bg-outline-variant/30" />}
+            <div>
+              <div class="text-3xl font-headline font-bold text-md-primary">
+                {stat.value}
+              </div>
+              <div class="text-sm uppercase tracking-widest text-on-surface-variant">
+                {stat.label}
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

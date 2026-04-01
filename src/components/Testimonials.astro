@@ -1,0 +1,85 @@
+---
+/**
+ * Testimonials.astro – Customer reviews section
+ *
+ * Shadcn integration notes:
+ * - Each review card maps directly to:
+ *     <Card>
+ *       <CardContent>…stars + quote…</CardContent>
+ *       <CardFooter>…avatar + name…</CardFooter>
+ *     </Card>
+ */
+
+interface Review {
+  quote: string;
+  name: string;
+  role: string;
+  rating: number;
+  avatarBg: string;
+}
+
+const reviews: Review[] = [
+  {
+    quote:
+      "The Nastar Royale is unlike anything I've ever tasted. The jam is perfectly balanced—not too sweet, just the right amount of tang. Truly premium.",
+    name: "Amanda Clarissa",
+    role: "Verified Collector",
+    rating: 5,
+    avatarBg: "bg-secondary-container",
+  },
+  {
+    quote:
+      "I ordered hampers for my company's clients and the feedback was incredible. The packaging itself is a work of art. Vanrez is now our go-to.",
+    name: "Julian Pratama",
+    role: "Corporate Partner",
+    rating: 5,
+    avatarBg: "bg-primary-container",
+  },
+  {
+    quote:
+      "Perfect texture. The Kastengel has that sharp, authentic cheese flavor that is so hard to find these days. Reminds me of my grandmother's baking.",
+    name: "Siti Nurhaliza",
+    role: "Connoisseur",
+    rating: 4,
+    avatarBg: "bg-tertiary-container",
+  },
+];
+---
+
+<section class="py-16 md:py-24 bg-surface-container-highest/30" id="reviews" aria-labelledby="reviews-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <h2 id="reviews-heading" class="text-3xl font-headline font-bold text-center mb-10 md:mb-16 italic">
+      Whispers of Delight
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {reviews.map((review) => (
+        <!-- Candidate for <Card> -->
+        <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border border-outline-variant/10">
+          <div class="flex text-md-primary mb-4" role="img" aria-label={`Rating: ${review.rating} out of 5 stars`}>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span
+                class="material-symbols-outlined"
+                style={`font-variation-settings: 'FILL' ${i < review.rating ? 1 : 0};`}
+                aria-hidden="true"
+              >
+                star
+              </span>
+            ))}
+          </div>
+
+          <p class="text-on-surface-variant italic mb-6">"{review.quote}"</p>
+
+          {/* Reviewer info */}
+          <div class="flex items-center gap-4">
+            <div class:list={["w-10 h-10 rounded-full", review.avatarBg]} role="img" aria-label={`${review.name} avatar`} />
+            <div>
+              <div class="font-bold text-sm">{review.name}</div>
+              <div class="text-xs text-on-surface-variant">{review.role}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

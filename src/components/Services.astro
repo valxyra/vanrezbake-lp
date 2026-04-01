@@ -1,0 +1,86 @@
+---
+/**
+ * Services.astro – Core services grid
+ *
+ * Shadcn integration notes:
+ * - Each service block is a perfect candidate for:
+ *     <Card>
+ *       <CardHeader>
+ *         <icon-container />
+ *         <CardTitle>…</CardTitle>
+ *       </CardHeader>
+ *       <CardContent><CardDescription>…</CardDescription></CardContent>
+ *     </Card>
+ */
+
+interface Service {
+  icon: string;
+  title: string;
+  description: string;
+  iconBg: string;
+  iconColor: string;
+}
+
+const services: Service[] = [
+  {
+    icon: "groups",
+    title: "Gathering Platters",
+    description:
+      "Elegant cookie assortments designed to be the centerpiece of your family reunions and intimate gatherings.",
+    iconBg: "bg-secondary-container",
+    iconColor: "text-on-secondary-container",
+  },
+  {
+    icon: "featured_seasonal_and_gifts",
+    title: "Bespoke Hampers",
+    description:
+      "Luxury gifting options with customizable ribbons, greeting cards, and premium velvet-lined packaging.",
+    iconBg: "bg-primary-container",
+    iconColor: "text-on-primary-container",
+  },
+  {
+    icon: "celebration",
+    title: "Eid al-Fitr Specials",
+    description:
+      "Exclusive holiday collections celebrating tradition with a modern, sophisticated artisanal twist.",
+    iconBg: "bg-tertiary-container/30",
+    iconColor: "text-on-tertiary-container",
+  },
+];
+---
+
+<section class="bg-surface-container-low py-16 md:py-24" id="services" aria-labelledby="services-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8">
+    <h2 id="services-heading" class="sr-only">Our Services</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-12">
+      {services.map((service, index) => (
+        <!-- Candidate for <Card> wrapper -->
+        <div class:list={[
+          "space-y-6 py-10 lg:py-0",
+          index < services.length - 1 ? "border-b border-outline-variant/20 lg:border-b-0" : "",
+        ]}>
+          <div
+            class:list={[
+              "w-16 h-16 rounded-xl flex items-center justify-center",
+              service.iconBg,
+            ]}
+          >
+            <span
+              class:list={[
+                "material-symbols-outlined text-3xl",
+                service.iconColor,
+              ]}
+              aria-hidden="true"
+            >
+              {service.icon}
+            </span>
+          </div>
+          <h3 class="text-2xl font-headline font-bold">{service.title}</h3>
+          <p class="text-on-surface-variant leading-relaxed">
+            {service.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

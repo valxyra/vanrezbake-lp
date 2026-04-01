@@ -1,0 +1,90 @@
+---
+/**
+ * Footer.astro – Base information section
+ *
+ * Shadcn integration notes:
+ * - Link groups could use Shadcn's NavigationMenu for accessibility.
+ * - No immediate Card/Button needs here, but the overall container
+ *   can be wrapped in a <Card> for consistent theming if desired.
+ */
+
+const socialLinks = [
+  {
+    label: "Contact",
+    href: "mailto:hello@vanrezbakery.com",
+  },
+  {
+    label: "Instagram",
+    href: "https://instagram.com/vanrezbakery",
+    external: true,
+  },
+  {
+    label: "Facebook",
+    href: "https://facebook.com/vanrezbakery",
+    external: true,
+  },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full rounded-t-[3rem] mt-20 bg-surface-container-low">
+  <div
+    class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 sm:px-12 py-12 md:py-16 text-center md:text-left"
+  >
+    <!-- Brand column -->
+    <div class="space-y-4">
+      <div class="font-headline text-xl font-bold text-md-primary">
+        Vanrez Bakery
+      </div>
+      <p
+        class="text-on-surface-variant font-body text-sm tracking-wide"
+      >
+        Handcrafting premium memories through traditional cookie recipes and
+        artisanal care.
+      </p>
+    </div>
+
+    <!-- Social / connect column -->
+    <div class="space-y-4">
+      <h4
+        class="text-md-primary font-bold text-sm uppercase tracking-widest"
+      >
+        Connect
+      </h4>
+      <div class="flex flex-col gap-2 font-body text-sm tracking-wide">
+        {socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            class="text-on-surface-variant hover:text-md-primary underline underline-offset-4 transition-opacity opacity-80 hover:opacity-100"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Address column -->
+    <div class="space-y-4">
+      <h4
+        class="text-md-primary font-bold text-sm uppercase tracking-widest"
+      >
+        Bakehouse
+      </h4>
+      <div class="text-on-surface-variant font-body text-sm tracking-wide">
+        123 Confectioner's Way<br />
+        Pastry District, SC 45001<br />
+        hello@vanrezbakery.com
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright bar -->
+  <div
+    class="px-12 py-8 border-t border-outline-variant/10 text-center text-on-surface-variant font-body text-sm tracking-wide"
+  >
+    © {currentYear} Vanrez Bakery. Handcrafted with love.
+  </div>
+</footer>
